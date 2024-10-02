@@ -5,7 +5,7 @@ const Hero = () => {
     <div className="bg-gray-50">
       <div className="max-w-6xl mx-auto py-16 px-6 lg:px-8">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl tracking-wide">
-          Welcome to the Accounts Department!
+          Welcome to the Accounts Portal!
         </h1>
         <p className="mt-4 text-lg leading-7 text-gray-600">
           At the Indian Institute of Information Technology, Lucknow, we are

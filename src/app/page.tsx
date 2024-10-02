@@ -2,7 +2,8 @@
 import Footer from './components/Footer';
 import Header from './components/Header'; // Import the Header component
 import Hero from './components/landing/Hero';
-import Features from './components/landing/Features';
+import About from './components/landing/About';
+import Services from './components/landing/Services';
 
 const HomePage = () => {
   return (
@@ -10,7 +11,8 @@ const HomePage = () => {
       <Header />
       <main className="flex-grow"> {/* Allow the main content to grow */}
         <Hero />
-        <Features/>
+        <About/>
+        <Services />
       </main>
       <Footer />
     </div>
