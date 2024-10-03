@@ -26,7 +26,7 @@ const ReportsPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white shadow-lg">
         <div className="p-4 flex items-center gap-4">
@@ -50,17 +50,17 @@ const ReportsPage = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 p-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-8">Academic Reports</h1>
+      <div className="flex-1 p-6">
+        <h1 className="text-3xl font-extrabold text-gray-800 mb-6">Academic Reports</h1>
 
-        <div className="bg-white shadow-xl rounded-lg overflow-hidden">
-          <table className="min-w-full table-auto">
+        <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <table className="min-w-full leading-normal">
             <thead>
               <tr>
-                <th className="px-6 py-4 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-5 py-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Semester
                 </th>
-                <th className="px-6 py-4 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-5 py-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Action
                 </th>
               </tr>
@@ -68,24 +68,32 @@ const ReportsPage = () => {
             <tbody>
               {semesters.map((semester, index) => (
                 <tr key={index} className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-4 border-b border-gray-200 bg-white text-sm font-medium text-gray-900">
-                    {semester.name}
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <div className="flex items-center">
+                      <div className="ml-3">
+                        <p className="text-gray-900 whitespace-no-wrap font-semibold">{semester.name}</p>
+                      </div>
+                    </div>
                   </td>
-                  <td className="px-6 py-4 border-b border-gray-200 bg-white text-sm">
-                    <a href={semester.reportLink} className="text-indigo-600 hover:text-indigo-800 mr-4 transition">View</a>
-                    <a href={semester.downloadLink} className="text-green-600 hover:text-green-800 transition">Download</a>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <a href={semester.reportLink} className="text-blue-600 hover:text-blue-800 mr-4">View</a>
+                    <a href={semester.downloadLink} className="text-green-600 hover:text-green-800">Download</a>
                   </td>
                 </tr>
               ))}
 
               {/* Consolidated Final Year */}
               <tr className="hover:bg-gray-50 transition">
-                <td className="px-6 py-4 border-b border-gray-200 bg-white text-sm font-medium text-gray-900">
-                  {finalYear.name}
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div className="flex items-center">
+                    <div className="ml-3">
+                      <p className="text-gray-900 whitespace-no-wrap font-semibold">{finalYear.name}</p>
+                    </div>
+                  </div>
                 </td>
-                <td className="px-6 py-4 border-b border-gray-200 bg-white text-sm">
-                  <a href={finalYear.reportLink} className="text-indigo-600 hover:text-indigo-800 mr-4 transition">View</a>
-                  <a href={finalYear.downloadLink} className="text-green-600 hover:text-green-800 transition">Download</a>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <a href={finalYear.reportLink} className="text-blue-600 hover:text-blue-800 mr-4">View</a>
+                  <a href={finalYear.downloadLink} className="text-green-600 hover:text-green-800">Download</a>
                 </td>
               </tr>
             </tbody>
