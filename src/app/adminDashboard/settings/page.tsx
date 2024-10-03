@@ -11,16 +11,21 @@ import {
   CogIcon,
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import HomeIcon from '@heroicons/react/24/outline/HomeIcon';
+import UsersIcon from '@heroicons/react/24/outline/UsersIcon';
+import FolderIcon from '@heroicons/react/24/outline/FolderIcon';
+import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon';
+import ClipboardDocumentListIcon from '@heroicons/react/24/outline/ClipboardDocumentListIcon';
+import CogIcon from '@heroicons/react/24/outline/CogIcon';
 
 const adminNavigation = [
-  { name: 'Dashboard', href: '/adminDashboard', icon: HomeIcon, current: false },
-  { name: 'User Management', href: '/adminDashboard/userManagement', icon: UsersIcon, current: false },
-  { name: 'Fee Management', href: '/adminDashboard/feeManagement', icon: FolderIcon, current: false },
-  { name: 'Transaction Management', href: '/adminDashboard/transactionManagement', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Reporting & Analytics', href: '/adminDashboard/reports', icon: ChartBarIcon, current: false },
-  { name: 'Notifications', href: '/adminDashboard/notifications', icon: ClipboardDocumentListIcon, current: false },
-  { name: 'Settings', href: '/adminDashboard/settings', icon: CogIcon, current: true },
-];
+    { name: 'Dashboard', href: '/adminDashboard', icon: HomeIcon, current: false },
+    { name: 'User Management', href: '/adminDashboard/userManagement', icon: UsersIcon, current: false },
+    { name: 'Fee Management', href: '/adminDashboard/feeManagement', icon: FolderIcon, current: false },
+    { name: 'Transaction Management', href: '/adminDashboard/transactionManagement', icon: DocumentDuplicateIcon, current: false },
+    { name: 'Notifications', href: '/adminDashboard/notifications', icon: ClipboardDocumentListIcon, current: false },
+    { name: 'Settings', href: '/adminDashboard/settings', icon: CogIcon, current: true },
+  ];
 
 const Settings = () => {
   const [adminName, setAdminName] = useState('Admin');
