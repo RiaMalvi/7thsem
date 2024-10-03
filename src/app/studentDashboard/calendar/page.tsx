@@ -114,7 +114,7 @@ const CalendarPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white shadow-lg">
         <div className="p-4 flex items-center gap-4">
@@ -168,7 +168,7 @@ const CalendarPage = () => {
               value={newReminder}
               onChange={(e) => setNewReminder(e.target.value)}
               placeholder="Add a reminder..."
-              className="p-2 border rounded"
+              className="p-2 border rounded text-black"
             />
             <button
               onClick={handleAddReminder}
@@ -180,7 +180,7 @@ const CalendarPage = () => {
         )}
 
         {/* Calendar Grid */}
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="bg-white shadow-md rounded-lg overflow-hidden text-black">
           {renderCalendar()}
         </div>
       </div>
