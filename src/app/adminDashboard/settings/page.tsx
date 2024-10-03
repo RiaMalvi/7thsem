@@ -5,18 +5,11 @@ import {
   HomeIcon,
   UsersIcon,
   FolderIcon,
-  ChartBarIcon,
   DocumentDuplicateIcon,
   ClipboardDocumentListIcon,
   CogIcon,
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import HomeIcon from '@heroicons/react/24/outline/HomeIcon';
-import UsersIcon from '@heroicons/react/24/outline/UsersIcon';
-import FolderIcon from '@heroicons/react/24/outline/FolderIcon';
-import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon';
-import ClipboardDocumentListIcon from '@heroicons/react/24/outline/ClipboardDocumentListIcon';
-import CogIcon from '@heroicons/react/24/outline/CogIcon';
 
 const adminNavigation = [
     { name: 'Dashboard', href: '/adminDashboard', icon: HomeIcon, current: false },

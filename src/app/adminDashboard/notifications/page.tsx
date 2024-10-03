@@ -6,7 +6,6 @@ import HomeIcon from '@heroicons/react/24/outline/HomeIcon';
 import UsersIcon from '@heroicons/react/24/outline/UsersIcon';
 import FolderIcon from '@heroicons/react/24/outline/FolderIcon';
 import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon';
-import ChartBarIcon from '@heroicons/react/24/outline/ChartBarIcon';
 import ClipboardDocumentListIcon from '@heroicons/react/24/outline/ClipboardDocumentListIcon';
 import CogIcon from '@heroicons/react/24/outline/CogIcon';
 
@@ -15,7 +14,6 @@ const adminNavigation = [
     { name: 'User Management', href: '/adminDashboard/userManagement', icon: UsersIcon, current: false },
     { name: 'Fee Management', href: '/adminDashboard/feeManagement', icon: FolderIcon, current: false },
     { name: 'Transaction Management', href: '/adminDashboard/transactionManagement', icon: DocumentDuplicateIcon, current: false },
-    { name: 'Reporting & Analytics', href: '/adminDashboard/reports', icon: ChartBarIcon, current: false },
     { name: 'Notifications', href: '/adminDashboard/notifications', icon: ClipboardDocumentListIcon, current: false },
     { name: 'Settings', href: '/adminDashboard/settings', icon: CogIcon, current: false },
   ];
