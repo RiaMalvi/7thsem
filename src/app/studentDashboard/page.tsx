@@ -17,10 +17,14 @@ const StudentDashboard = () => {
     <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white shadow-lg">
+      <aside className="w-64 bg-gray-900 text-white shadow-lg">
         <div className="p-4 flex items-center gap-4">
           <Image src="/images/logo.png" alt="Logo" width={50} height={50} className="rounded-full" />
           <h2 className="text-lg font-extrabold">Accounts Portal</h2>
+          <Image src="/images/logo.png" alt="Logo" width={50} height={50} className="rounded-full" />
+          <h2 className="text-lg font-extrabold">Accounts Portal</h2>
         </div>
+        <nav className="mt-8">
         <nav className="mt-8">
           {navigation.map((item) => (
             <a
