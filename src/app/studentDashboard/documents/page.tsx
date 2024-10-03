@@ -120,7 +120,7 @@ const DocumentsPage = () => {
           <input
             type="file"
             onChange={handleFileChange}
-            className="p-2 border rounded"
+            className="p-2 border rounded text-gray-500 border-gray-700"
           />
           <button
             onClick={handleUpload}
@@ -134,7 +134,7 @@ const DocumentsPage = () => {
         <h2 className="text-xl font-semibold text-gray-800 mb-4">{currentCategory}</h2>
         <div className="bg-white shadow-md rounded-lg p-4">
           {documents[currentCategory].length === 0 ? (
-            <p>No documents uploaded in this category yet.</p>
+            <p className='text-gray-500'>No documents uploaded in this category yet.</p>
           ) : (
             <ul>
               {documents[currentCategory].map((doc) => (
