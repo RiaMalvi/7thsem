@@ -6,22 +6,22 @@ const About = () => {
       <div className="max-w-8xl px-24 mx- mx-20 grid grid-cols-1 md:grid-cols-4 gap-8">
 
         {/* Left Sidebar - Reminders */}
-        <div className="col-span-1 bg-white p-4 rounded-lg shadow-md">
+        <div className="col-span-1 bg-white p-4 rounded-lg shadow-md text-black">
           <h2 className="text-xl font-bold text-gray-700">Reminders</h2>
           <ul className="mt-4 space-y-3">
-            <li className="bg-gray-100 p-3 rounded-md shadow-sm">
+            <li className="bg-gray-200 p-3 rounded-md shadow-sm">
               Group study session on Tuesday in the science building, room 315
             </li>
-            <li className="bg-gray-100 p-3 rounded-md shadow-sm">
+            <li className="bg-gray-200 p-3 rounded-md shadow-sm">
               Onion rings special this Friday at the cafeteria
             </li>
-            <li className="bg-gray-100 p-3 rounded-md shadow-sm">
+            <li className="bg-gray-200 p-3 rounded-md shadow-sm">
               Return Chemistry textbook to the library by Thursday at 4:00pm
             </li>
-            <li className="bg-gray-100 p-3 rounded-md shadow-sm">
+            <li className="bg-gray-200 p-3 rounded-md shadow-sm">
               Site visit to Harold Melner`&apos;`s hospital on Wednesday afternoon
             </li>
-            <li className="bg-gray-100 p-3 rounded-md shadow-sm">
+            <li className="bg-gray-200 p-3 rounded-md shadow-sm">
               Volunteer at the children`&apos;`s home this Sunday
             </li>
           </ul>
@@ -55,7 +55,7 @@ const About = () => {
         </div>
 
         {/* Right Sidebar - Announcements */}
-        <div className="col-span-1 bg-white p-4 rounded-lg shadow-md">
+        <div className="col-span-1 bg-white p-4 rounded-lg shadow-md text-black">
           <h2 className="text-xl font-bold text-gray-700">Upcoming Events</h2>
           <ul className="mt-4 space-y-3">
             <li className="bg-gray-100 p-3 rounded-md shadow-sm">

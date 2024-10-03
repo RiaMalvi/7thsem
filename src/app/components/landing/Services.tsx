@@ -1,34 +1,51 @@
-import React from 'react'
+"use client"; // Mark this component as a Client Component
+
+import React from 'react';
 import { FaUsers } from "react-icons/fa";
 import { BsBriefcaseFill } from "react-icons/bs";
 import { FaBuildingShield } from "react-icons/fa6";
+import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 
-// Services array with the portals
-const services = [
+// Define a type for services
+type Service = {
+  name: string;
+  description: string;
+  href: string;
+  icon: React.ElementType; // Use ElementType for icon type
+};
+
+const services: Service[] = [
   {
     name: 'Student Portal',
     description:
       'The student portal allows students to pay their fees, access financial records, and check reminders posted by the accounts department. Only students and the accounts department have access to this portal.',
-    href: '/student-portal', // Update this path to where it should redirect
-    icon: FaUsers, // Icon for students
+    href: '/studentLogin', // Path for Student Login
+    icon: FaUsers,
   },
   {
     name: 'Employee Portal',
     description:
       'The employee portal is designed for faculty and staff to access their salary details and related financial information. Both employees and the accounts department have access to this portal.',
-    href: '/employee-portal', // Update this path to where it should redirect
-    icon: BsBriefcaseFill, // Icon for employees
+    href: '/employeeLogin', // Path for Employee Login
+    icon: BsBriefcaseFill,
   },
   {
     name: 'Admin Portal',
     description:
       'The admin portal is restricted to the accounts department for managing financial transactions, and it has control over the other two portals. It also handles posting reminders and announcements.',
-    href: '/admin-portal', // Update this path to where it should redirect
-    icon: FaBuildingShield, // Icon for admin
+    href: '/adminLogin', // Path for Admin Login
+    icon: FaBuildingShield,
   },
-]
+];
 
-const Services = () => {
+const Services: React.FC = () => {
+  const router = useRouter(); // Initialize useRouter
+
+  // Function to handle navigation
+  const handleRedirect = (href: string) => {
+    router.push(href); // Redirect to the respective page
+  };
+
   return (
     <div className="bg-white p-16">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -46,8 +63,8 @@ const Services = () => {
             {services.map((feature) => (
               <div
                 key={feature.name}
-                className="flex flex-col p-4 border-2 border-gray-400 rounded-lg cursor-pointer transition-all hover:bg-blue-50 hover:border-blue-600 hover:shadow-lg"
-                onClick={() => window.location.href = feature.href} // Redirect on click
+                className="flex flex-col p-4 border-2 border-gray-400 rounded-lg cursor-pointer hover:bg-blue-50 transition duration-300"
+                onClick={() => handleRedirect(feature.href)} // Handle redirect on click
               >
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900 p-2">
                   <feature.icon aria-hidden="true" className="h-5 w-5 flex-none text-blue-700" />
@@ -62,7 +79,7 @@ const Services = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Services
+export default Services;
