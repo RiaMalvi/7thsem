@@ -5,7 +5,6 @@ import {
   HomeIcon,
   UsersIcon,
   FolderIcon,
-  ChartBarIcon,
   DocumentDuplicateIcon,
   ClipboardDocumentListIcon,
   CogIcon,
@@ -34,7 +33,6 @@ const adminNavigation = [
     { name: 'User Management', href: '/adminDashboard/userManagement', icon: UsersIcon, current: false },
     { name: 'Fee Management', href: '/adminDashboard/feeManagement', icon: FolderIcon, current: true },
     { name: 'Transaction Management', href: '/adminDashboard/transactionManagement', icon: DocumentDuplicateIcon, current: false },
-    { name: 'Reporting & Analytics', href: '/adminDashboard/reports', icon: ChartBarIcon, current: false },
     { name: 'Notifications', href: '/adminDashboard/notifications', icon: ClipboardDocumentListIcon, current: false },
     { name: 'Settings', href: '/adminDashboard/settings', icon: CogIcon, current: false },
   ];
