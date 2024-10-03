@@ -1,17 +1,22 @@
-// pages/studentDashboard/profile/index.tsx
-'use client';
-
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { HomeIcon, UsersIcon, FolderIcon, CalendarIcon, DocumentDuplicateIcon, ChartPieIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
+"use client";
+import { useState, ChangeEvent, FormEvent } from "react";
+import {
+  HomeIcon,
+  UsersIcon,
+  FolderIcon,
+  CalendarIcon,
+  DocumentDuplicateIcon,
+  ChartPieIcon,
+} from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 const navigation = [
-  { name: 'Dashboard', href: '/studentDashboard', icon: HomeIcon, current: false },
-  { name: 'Profile', href: '/studentDashboard/profile', icon: UsersIcon, current: true },
-  { name: 'Fee Details', href: '/studentDashboard/feeDetails', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '/studentDashboard/calendar', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '/studentDashboard/documents', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Reports', href: '/studentDashboard/reports', icon: ChartPieIcon, current: false },
+  { name: "Dashboard", href: "/studentDashboard", icon: HomeIcon, current: false },
+  { name: "Profile", href: "/studentDashboard/profile", icon: UsersIcon, current: true },
+  { name: "Fee Details", href: "/studentDashboard/feeDetails", icon: FolderIcon, current: false },
+  { name: "Calendar", href: "/studentDashboard/calendar", icon: CalendarIcon, current: false },
+  { name: "Documents", href: "/studentDashboard/documents", icon: DocumentDuplicateIcon, current: false },
+  { name: "Reports", href: "/studentDashboard/reports", icon: ChartPieIcon, current: false },
 ];
 
 const Profile = () => {
@@ -28,16 +33,16 @@ const Profile = () => {
     branch: string;
     photo: File | null;
   }>({
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    phone: '123-456-7890',
-    studentId: 'IIIT1234',
-    batch: '2022',
-    currentSemester: '6',
-    enrollmentNumber: 'ENR2022-0001',
-    parentsName: 'Jane Doe',
-    address: '123 Main St, City, Country',
-    branch: 'Computer Science',
+    name: "John Doe",
+    email: "johndoe@example.com",
+    phone: "123-456-7890",
+    studentId: "IIIT1234",
+    batch: "2022",
+    currentSemester: "6",
+    enrollmentNumber: "ENR2022-0001",
+    parentsName: "Jane Doe",
+    address: "123 Main St, City, Country",
+    branch: "Computer Science",
     photo: null,
   });
 
@@ -61,24 +66,30 @@ const Profile = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Updated Profile:', profile);
-    alert('Profile updated successfully!');
+    console.log("Updated Profile:", profile);
+    alert("Profile updated successfully!");
     setIsModalOpen(false); // Close the modal after submitting
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white">
+      <aside className="w-64 bg-gray-900 text-white shadow-lg">
         <div className="p-4 flex items-center gap-4">
-          <Image src="/images/logo.png" alt="Logo" width={50} height={50} />
-          <h2 className="text-lg font-bold">Accounts Portal</h2>
+          <Image src="/images/logo.png" alt="Logo" width={50} height={50} className="rounded-full" />
+          <h2 className="text-lg font-extrabold">Accounts Portal</h2>
         </div>
-        <nav className="mt-5">
+        <nav className="mt-8">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="flex items-center p-2 text-gray-300 hover:bg-gray-700 hover:text-white">
-              <item.icon className="h-5 w-5" aria-hidden="true" />
-              <span className="ml-3">{item.name}</span>
+            <a
+              key={item.name}
+              href={item.href}
+              className={`flex items-center p-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition ${
+                item.current ? "bg-gray-700 text-white" : ""
+              }`}
+            >
+              <item.icon className="h-6 w-6" aria-hidden="true" />
+              <span className="ml-4 font-medium">{item.name}</span>
             </a>
           ))}
         </nav>
@@ -87,77 +98,177 @@ const Profile = () => {
       {/* Main Content */}
       <div className="flex-1 p-6 text-black">
         <h1 className="text-2xl font-bold mb-6">Student Profile</h1>
-        
-        {/* Profile Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Name</h2>
-            <p>{profile.name}</p>
+
+        {/* Profile Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Left side - Profile Picture and Actions */}
+          <div className="bg-white p-4 rounded shadow flex flex-col items-center justify-center ">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4">
+              {/* Placeholder Image */}
+              {profile.photo ? (
+                <Image src={URL.createObjectURL(profile.photo)} alt="Profile" width={128} height={128} />
+              ) : (
+                <Image src="/images/avatar.png" alt="Profile" width={128} height={128} />
+              )}
+            </div>
+            <h2 className="text-lg font-semibold mb-2">{profile.name}</h2>
+            <p className="text-md text-gray-500">Full Stack Developer</p>
+            <p className="text-md text-gray-500 mb-4">Bay Area, San Francisco, CA</p>
+            <button className="px-4 py-2 bg-gray-300 text-black rounded w-[80%]">Mail</button>
           </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Email</h2>
-            <p>{profile.email}</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Phone Number</h2>
-            <p>{profile.phone}</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Batch</h2>
-            <p>{profile.batch}</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Current Semester</h2>
-            <p>{profile.currentSemester}</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Enrollment Number</h2>
-            <p>{profile.enrollmentNumber}</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Parent&apos;s Name</h2>
-            <p>{profile.parentsName}</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Address</h2>
-            <p>{profile.address}</p>
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Branch</h2>
-            <p>{profile.branch}</p>
+
+          {/* Right side - Profile Information */}
+          <div className="col-span-2">
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { label: "Full Name", value: profile.name },
+                { label: "Email", value: profile.email },
+                { label: "Phone Number", value: profile.phone },
+                { label: "Batch", value: profile.batch },
+                { label: "Current Semester", value: profile.currentSemester },
+                { label: "Enrollment Number", value: profile.enrollmentNumber },
+                { label: "Parent's Name", value: profile.parentsName },
+                { label: "Address", value: profile.address },
+                { label: "Branch", value: profile.branch },
+              ].map(({ label, value }) => (
+                <div key={label} className="bg-white p-3 rounded shadow">
+                  <h2 className="text-md font-semibold">{label}</h2>
+                  <p className="text-sm">{value}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Update Profile Button */}
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="mt-6 px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Update Profile
+            </button>
           </div>
         </div>
-
-        {/* Update Profile Button */}
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="mt-6 px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Update Profile
-        </button>
 
         {/* Update Profile Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md">
-              <h2 className="text-xl font-bold mb-4">Update Profile</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="text" name="name" placeholder="Name" value={profile.name} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <input type="email" name="email" placeholder="Email" value={profile.email} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <input type="tel" name="phone" placeholder="Phone Number" value={profile.phone} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <input type="text" name="batch" placeholder="Batch" value={profile.batch} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <input type="text" name="currentSemester" placeholder="Current Semester" value={profile.currentSemester} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <input type="text" name="enrollmentNumber" placeholder="Enrollment Number" value={profile.enrollmentNumber} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <input type="text" name="parentsName" placeholder="Parent's Name" value={profile.parentsName} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <textarea name="address" placeholder="Address" value={profile.address} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required></textarea>
-                <input type="text" name="branch" placeholder="Branch" value={profile.branch} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded-md" required />
-                <input type="file" name="photo" onChange={handleFileChange} className="block w-full border border-gray-300 rounded-md" />
+            <div className="bg-white rounded-lg p-4 w-full max-w-2xl"> {/* Increased width */}
+              <h2 className="text-xl font-bold mb-2">Update Profile</h2>
+              <form onSubmit={handleSubmit} className="space-y-2">
+                <label className=" text-gray-700">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={profile.name}
+                  onChange={handleChange}
+                  className=" w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+                
+                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={profile.email}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
 
-                <div className="flex justify-between mt-4">
-                  <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
-                  <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 bg-red-500 text-white rounded">Cancel</button>
-                </div>
+                <label className="block text-sm font-medium text-gray-700">Phone</label>
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Phone"
+                  value={profile.phone}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+
+                <label className="block text-sm font-medium text-gray-700">Batch</label>
+                <input
+                  type="text"
+                  name="batch"
+                  placeholder="Batch"
+                  value={profile.batch}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+
+                <label className="block text-sm font-medium text-gray-700">Current Semester</label>
+                <input
+                  type="text"
+                  name="currentSemester"
+                  placeholder="Current Semester"
+                  value={profile.currentSemester}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+
+                <label className="block text-sm font-medium text-gray-700">Enrollment Number</label>
+                <input
+                  type="text"
+                  name="enrollmentNumber"
+                  placeholder="Enrollment Number"
+                  value={profile.enrollmentNumber}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+
+                <label className="block text-sm font-medium text-gray-700">Parent's Name</label>
+                <input
+                  type="text"
+                  name="parentsName"
+                  placeholder="Parent's Name"
+                  value={profile.parentsName}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+
+                <label className="block text-sm font-medium text-gray-700">Address</label>
+                <textarea
+                  name="address"
+                  placeholder="Address"
+                  value={profile.address}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                ></textarea>
+
+                <label className="block text-sm font-medium text-gray-700">Branch</label>
+                <input
+                  type="text"
+                  name="branch"
+                  placeholder="Branch"
+                  value={profile.branch}
+                  onChange={handleChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+
+                <label className="block text-sm font-medium text-gray-700">Profile Picture</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="block w-full p-1 border border-gray-300 rounded-md text-sm"
+                />
+                <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md">
+                  Submit
+                </button>
               </form>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="mt-4 w-full bg-gray-500 text-white py-2 rounded-md"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         )}

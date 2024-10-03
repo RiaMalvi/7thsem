@@ -14,7 +14,7 @@ const navigation = [
 
 const StudentDashboard = () => {
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white shadow-lg">
         <div className="p-4 flex items-center gap-4">
@@ -27,7 +27,7 @@ const StudentDashboard = () => {
               key={item.name}
               href={item.href}
               className={`flex items-center p-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition ${
-                item.current ? 'bg-gray-700 text-white' : ''
+                item.current ? "bg-gray-700 text-white" : ""
               }`}
             >
               <item.icon className="h-6 w-6" aria-hidden="true" />
