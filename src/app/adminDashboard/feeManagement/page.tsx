@@ -10,9 +10,9 @@ import ClipboardDocumentListIcon from '@heroicons/react/24/outline/ClipboardDocu
 import CogIcon from '@heroicons/react/24/outline/CogIcon';
 
 const adminNavigation = [
-    { name: 'Dashboard', href: '/adminDashboard', icon: HomeIcon, current: true },
+    { name: 'Dashboard', href: '/adminDashboard', icon: HomeIcon, current: false },
     { name: 'User Management', href: '/adminDashboard/userManagement', icon: UsersIcon, current: false },
-    { name: 'Fee Management', href: '/adminDashboard/feeManagement', icon: FolderIcon, current: false },
+    { name: 'Fee Management', href: '/adminDashboard/feeManagement', icon: FolderIcon, current: true },
     { name: 'Transaction Management', href: '/adminDashboard/transactionManagement', icon: DocumentDuplicateIcon, current: false },
     { name: 'Reporting & Analytics', href: '/adminDashboard/reports', icon: ChartBarIcon, current: false },
     { name: 'Notifications', href: '/adminDashboard/notifications', icon: ClipboardDocumentListIcon, current: false },
