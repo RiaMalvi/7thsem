@@ -14,18 +14,24 @@ const navigation = [
 
 const StudentDashboard = () => {
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white">
+      <aside className="w-64 bg-gray-900 text-white shadow-lg">
         <div className="p-4 flex items-center gap-4">
-            <Image src="/images/logo.png" alt="Logo" width={50} height={50} />
-          <h2 className="text-lg font-bold">Accounts Portal</h2>
+          <Image src="/images/logo.png" alt="Logo" width={50} height={50} className="rounded-full" />
+          <h2 className="text-lg font-extrabold">Accounts Portal</h2>
         </div>
-        <nav className="mt-5">
+        <nav className="mt-8">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="flex items-center p-2 text-gray-300 hover:bg-gray-700 hover:text-white">
-              <item.icon className="h-5 w-5" aria-hidden="true" />
-              <span className="ml-3">{item.name}</span>
+            <a
+              key={item.name}
+              href={item.href}
+              className={`flex items-center p-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition ${
+                item.current ? "bg-gray-700 text-white" : ""
+              }`}
+            >
+              <item.icon className="h-6 w-6" aria-hidden="true" />
+              <span className="ml-4 font-medium">{item.name}</span>
             </a>
           ))}
         </nav>
