@@ -4,6 +4,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import Image from "next/image";
 import { adminNavigation } from "@/app/data/adminDashboard";
 import AdminDashboard from "../page";
+import AdminSidebar from "@/app/components/adminDashboard/sidebar";
 
 // Define the structure of a notification
 interface Notification {
@@ -37,7 +38,7 @@ const Notifications = () => {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
-      <AdminDashboard />
+      <AdminSidebar />
 
       {/* Main Content */}
       <div className="flex-1 p-6 text-black">
