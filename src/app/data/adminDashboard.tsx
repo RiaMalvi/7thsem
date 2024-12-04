@@ -19,11 +19,6 @@ export const adminNavigation = [
     icon: UsersIcon,
   },
   {
-    name: "Faculty Management",
-    href: "/adminDashboard/facultyManagement",
-    icon: UsersIcon,
-  },
-  {
     name: "Fee Management",
     href: "/adminDashboard/feeManagement",
     icon: FolderIcon,
