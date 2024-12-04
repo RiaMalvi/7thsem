@@ -103,7 +103,6 @@ const Notifications = () => {
               >
                 <option value="All">All</option>
                 <option value="Students">Students</option>
-                <option value="Faculty">Faculty</option>
                 <option value="Admin">Admin</option>
               </select>
             </div>
