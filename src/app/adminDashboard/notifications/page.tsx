@@ -5,7 +5,7 @@ import Image from "next/image";
 import { adminNavigation } from "@/app/data/adminDashboard";
 import AdminDashboard from "../page";
 import AdminSidebar from "@/app/components/adminDashboard/sidebar";
-
+import emailjs from '@emailjs/browser';
 // Define the structure of a notification
 interface Notification {
   title: string;
@@ -18,7 +18,7 @@ const Notifications = () => {
   // States to manage form and notification list
   const [title, setTitle] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [recipients, setRecipients] = useState<string>("All");
+  const [recipients, setRecipients] = useState<string>("");
   const [notifications, setNotifications] = useState<Notification[]>([]); // Set the type to Notification[]
 
   // Handler to send notification
@@ -33,7 +33,16 @@ const Notifications = () => {
     setNotifications([newNotification, ...notifications]);
     setTitle("");
     setMessage("");
-    setRecipients("All");
+    setRecipients("");
+    
+    emailjs.sendForm('service_03g6jhg', 'template_40xzrms', '#notification-form', 'Uw91CcM0bvfMltgcP').then(
+      function (response) {
+        console.log('SUCCESS!', response.status, response.text);
+      },
+      function (err) {
+        console.log('FAILED...', err);
+      },
+    );
   };
 
   return (
@@ -47,7 +56,7 @@ const Notifications = () => {
         {/* Send Notification Form */}
         <div className="bg-white shadow-md rounded-lg p-6 mb-6">
           <h2 className="font-semibold text-xl mb-4">Send New Notification</h2>
-          <form onSubmit={handleSendNotification}>
+          <form onSubmit={handleSendNotification} id="notification-form">
             <div className="mb-4">
               <label
                 className="block font-medium text-gray-700 mb-1"
@@ -58,6 +67,7 @@ const Notifications = () => {
               <input
                 type="text"
                 id="title"
+                name="title"
                 className="w-full p-2 border border-gray-300 rounded-md"
                 value={title}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -76,6 +86,7 @@ const Notifications = () => {
               </label>
               <textarea
                 id="message"
+                name="message"
                 className="w-full p-2 border border-gray-300 rounded-md"
                 rows={4} // Change this to a number type
                 value={message}
@@ -93,18 +104,16 @@ const Notifications = () => {
               >
                 Recipients
               </label>
-              <select
+              <textarea
                 id="recipients"
+                name="recipients"
                 className="w-full p-2 border border-gray-300 rounded-md"
                 value={recipients}
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                   setRecipients(e.target.value)
                 }
               >
-                <option value="All">All</option>
-                <option value="Students">Students</option>
-                <option value="Admin">Admin</option>
-              </select>
+              </textarea>
             </div>
 
             <button
