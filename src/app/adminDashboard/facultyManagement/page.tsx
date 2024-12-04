@@ -38,7 +38,7 @@ const UserManagement = () => {
     <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
       <AdminSidebar />
       <div className="flex-1 p-6 text-black">
-        <h1 className="text-2xl font-bold mb-6">User Management</h1>
+        <h1 className="text-2xl font-bold mb-6">Faculty Management</h1>
         <Link href="/adminDashboard/userManagement/addUser">
           <button className="mb-4 flex items-center px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
             <PlusIcon className="h-5 w-5 mr-2" />
