@@ -80,7 +80,9 @@ const AdminDashboard = () => {
                   <td className="border-b border-gray-300 px-4 py-2">
                     Pending Payments
                   </td>
-                  <td className="border-b border-gray-300 px-4 py-2">Rs. 5,000</td>
+                  <td className="border-b border-gray-300 px-4 py-2">
+                    Rs. 5,000
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -166,10 +168,10 @@ const AdminDashboard = () => {
             <ul className="list-disc list-inside mt-4">
               <li>
                 <a
-                  href="/adminDashboard/userManagement"
+                  href="/adminDashboard/studentManagement"
                   className="text-blue-600 hover:underline"
                 >
-                  Manage Users
+                  Manage Students
                 </a>
               </li>
               <li>
