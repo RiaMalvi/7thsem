@@ -19,8 +19,8 @@ const StudentLogin: React.FC = () => {
       return;
     }
     if (
-      email !== "lcb2021016@iiitl.ac.in" ||
-      studentId !== "LCB2021016" ||
+      !(email == "lcb2021016@iiitl.ac.in" || email=="lcb2021017@iiitl.ac.in" || email=="lci2021052@iiitl.ac.in") ||
+      !(studentId == "LCB2021016" || studentId == "LCB2021017" || studentId == "LCI2021052") ||
       password !== "password"
     ) {
       toast.error("Invalid credentials. Please try again.");
