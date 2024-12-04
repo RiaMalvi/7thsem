@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogTitle } from "@headlessui/react";
 import { useSetAtom, useAtom } from "jotai";
 import { batchAtom } from "@/atoms/all";
@@ -37,7 +37,11 @@ const AddBatchButton: React.FC = () => {
     e.preventDefault();
 
     // Parse students from the CSV file
-    const students = await getStudentsFromCSV(csvFile);
+    const parsedStudents = await getStudentsFromCSV(csvFile);
+    const students = parsedStudents.map((student, index) => ({
+      ...student,
+      id: index + 1, // Assign a unique ID to each student
+    }));
 
     // Create the new batch object
     const newBatch = {
@@ -60,13 +64,25 @@ const AddBatchButton: React.FC = () => {
     setCsvFile(null);
   };
 
+  // Dynamic semester options based on program
   const getSemesterOptions = () => {
-    if (formData.program === "BTech")
+    if (formData.program === "BTech") {
       return Array.from({ length: 8 }, (_, i) => i + 1);
-    if (["MTech", "MSc"].includes(formData.program))
+    }
+    if (["MTech", "MSc"].includes(formData.program)) {
       return Array.from({ length: 6 }, (_, i) => i + 1);
+    }
     return [];
   };
+
+  // Ensure re-render when program changes
+  useEffect(() => {
+    // Reset the semester to an empty value when program changes
+    setFormData((prevState) => ({
+      ...prevState,
+      semester: "",
+    }));
+  }, [formData.program]);
 
   return (
     <>

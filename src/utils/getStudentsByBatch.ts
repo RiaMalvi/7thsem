@@ -5,7 +5,7 @@ export const getStudentsByBatch = ({
   program,
   year,
 }: {
-  program: string;
+  program: "BTech" | "MTech" | "MSc";
   year: number;
 }) => {
   const batches = useAtomValue(batchAtom);
