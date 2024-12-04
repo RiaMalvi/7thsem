@@ -16,7 +16,15 @@ type Batch = {
 
 // Initial batch data
 const initialBatch: Batch[] = [
-  { id: 1, program: "BTech", year: 2021, semester: "Spring", students: [] },
+  {
+    id: 1,
+    program: "BTech",
+    year: 2021,
+    semester: "Spring",
+    students: [
+      { studentId: "1", name: "Alice", email: "LCB2021016@iiitl.ac.in" },
+    ],
+  },
   { id: 2, program: "BTech", year: 2022, semester: "Fall", students: [] },
   { id: 3, program: "BTech", year: 2023, semester: "Spring", students: [] },
   { id: 4, program: "MTech", year: 2021, semester: "Spring", students: [] },

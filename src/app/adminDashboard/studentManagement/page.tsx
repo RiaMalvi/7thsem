@@ -5,6 +5,7 @@ import { useAtomValue } from "jotai";
 import { batchAtom } from "@/atoms/all";
 import { useState } from "react";
 import AddBatchButton from "@/app/components/adminDashboard/studentManagement/AddBatchButton";
+import { getStudentsByBatch } from "@/utils/getStudentsByBatch";
 
 interface Batch {
   id: number;
@@ -39,6 +40,8 @@ const UserManagement: React.FC = () => {
   };
 
   console.log(groupedBatches);
+  const students = getStudentsByBatch({ program: "BTech", year: 2021 });
+  console.log({ students });
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
