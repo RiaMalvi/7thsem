@@ -73,14 +73,14 @@ const AdminDashboard = () => {
                     Total Fees Collected
                   </td>
                   <td className="border-b border-gray-300 px-4 py-2">
-                    $50,000
+                    Rs. 50,000
                   </td>
                 </tr>
                 <tr className="hover:bg-gray-100 transition-colors duration-200">
                   <td className="border-b border-gray-300 px-4 py-2">
                     Pending Payments
                   </td>
-                  <td className="border-b border-gray-300 px-4 py-2">$5,000</td>
+                  <td className="border-b border-gray-300 px-4 py-2">Rs. 5,000</td>
                 </tr>
               </tbody>
             </table>
