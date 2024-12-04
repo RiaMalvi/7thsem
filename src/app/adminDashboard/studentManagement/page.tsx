@@ -2,16 +2,9 @@
 
 import AdminSidebar from "@/app/components/adminDashboard/sidebar";
 import { useAtomValue } from "jotai";
-import { batchAtom } from "@/atoms/all";
+import { batchAtom, Batch} from "@/atoms/all";
 import { useState } from "react";
 import AddBatchButton from "@/app/components/adminDashboard/studentManagement/AddBatchButton";
-
-interface Batch {
-  id: number;
-  program: string;
-  year: number;
-  semester: string;
-}
 
 const UserManagement: React.FC = () => {
   const batches = useAtomValue<Batch[]>(batchAtom);
@@ -34,11 +27,15 @@ const UserManagement: React.FC = () => {
     }, {} as Record<string, boolean>)
   );
 
+  const [selectedBatch, setSelectedBatch] = useState<Batch | null>(null);
+
   const toggleSection = (program: string) => {
     setExpanded((prev) => ({ ...prev, [program]: !prev[program] }));
   };
 
-  console.log(groupedBatches);
+  const handleBatchClick = (batch: Batch) => {
+    setSelectedBatch(batch); // Set the selected batch when clicked
+  };
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-300">
@@ -59,7 +56,8 @@ const UserManagement: React.FC = () => {
                 {programBatches.map((batch) => (
                   <div
                     key={`${batch.program}-${batch.year}-${batch.id}`}
-                    className="bg-white shadow-md rounded-lg p-4 mb-4"
+                    className="bg-white shadow-md rounded-lg p-4 mb-4 cursor-pointer"
+                    onClick={() => handleBatchClick(batch)} // Set the selected batch
                   >
                     <h2 className="font-semibold text-lg">
                       Year: {batch.year}
@@ -73,6 +71,39 @@ const UserManagement: React.FC = () => {
             )}
           </div>
         ))}
+
+        {/* Display students table only if a batch is selected */}
+        {selectedBatch ? (
+          <div className="mt-6 bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold mb-4">
+              Students in Batch: {selectedBatch.program} - Year{" "}
+              {selectedBatch.year} - {selectedBatch.semester}
+            </h2>
+            <table className="min-w-full table-auto">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 border">Student Id</th>
+                  <th className="px-4 py-2 border">Name</th>
+                  <th className="px-4 py-2 border">Email Id</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedBatch.students.map((student) => (
+                  <tr key={student.id}>
+                    <td className="px-4 py-2 border">{student.id}</td>
+                    <td className="px-4 py-2 border">{student.name}</td>
+                    <td className="px-4 py-2 border">{student.email}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          // Fallback message if no batch is selected yet
+          <div className="mt-6 text-center text-gray-600">
+            Please select a batch to view students.
+          </div>
+        )}
       </div>
     </div>
   );
