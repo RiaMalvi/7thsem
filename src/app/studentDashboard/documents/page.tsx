@@ -45,12 +45,6 @@ const navigation = [
     icon: DocumentDuplicateIcon,
     current: true,
   },
-  {
-    name: "Reports",
-    href: "/studentDashboard/reports",
-    icon: ChartPieIcon,
-    current: false,
-  },
 ];
 
 // Document type interface
@@ -68,10 +62,6 @@ const DocumentsPage = () => {
     [key: string]: Document[];
   }>({
     "Fee Receipts": [],
-    "ID Cards": [],
-    Undertakings: [],
-    NOCs: [],
-    Miscellaneous: [],
   });
 
   const [uploadFile, setUploadFile] = useState<File | null>(null);
