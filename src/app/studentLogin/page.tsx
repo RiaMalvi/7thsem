@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import Image from "next/image";
 import google from "/public/images/google.png"; // Import Google logo
+import { instance } from "@/config/axios";
+import toast from "react-hot-toast";
 
 const StudentLogin: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -19,8 +20,16 @@ const StudentLogin: React.FC = () => {
       return;
     }
     if (
-      !(email == "lcb2021016@iiitl.ac.in" || email=="lcb2021017@iiitl.ac.in" || email=="lci2021052@iiitl.ac.in") ||
-      !(studentId == "LCB2021016" || studentId == "LCB2021017" || studentId == "LCI2021052") ||
+      !(
+        email == "lcb2021016@iiitl.ac.in" ||
+        email == "lcb2021017@iiitl.ac.in" ||
+        email == "lci2021052@iiitl.ac.in"
+      ) ||
+      !(
+        studentId == "LCB2021016" ||
+        studentId == "LCB2021017" ||
+        studentId == "LCI2021052"
+      ) ||
       password !== "password"
     ) {
       toast.error("Invalid credentials. Please try again.");
@@ -30,6 +39,27 @@ const StudentLogin: React.FC = () => {
     setTimeout(() => {
       router.push("/studentDashboard"); // Redirect to the dashboard
     }, 1000); // Redirect after 1 second
+  };
+
+  const handleLogin = async ({ email, studentId, password }: any) => {
+    try {
+      const response = await instance.post("/api/auth/student", {
+        email,
+        studentId,
+        password,
+      });
+      if (response.data.error) {
+        setError(response.data.error);
+        return;
+      }
+      localStorage.setItem("token", response.data.token);
+      toast.success("Login successful! Redirecting...");
+      setTimeout(() => {
+        router.push("/studentDashboard"); // Redirect to the dashboard
+      }, 1000); // Redirect after 1 second
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   const handleGoogleLogin = () => {
@@ -50,7 +80,7 @@ const StudentLogin: React.FC = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            mockLogin({ email, studentId, password });
+            handleLogin({ email, studentId, password });
           }}
         >
           <div className="mb-4">

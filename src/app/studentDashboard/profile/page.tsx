@@ -1,5 +1,5 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import {
   HomeIcon,
   UsersIcon,
@@ -9,17 +9,50 @@ import {
   ChartPieIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { instance } from "@/config/axios";
+import { useStudent } from "@/providers/Student";
 
 const navigation = [
-  { name: "Dashboard", href: "/studentDashboard", icon: HomeIcon, current: false },
-  { name: "Profile", href: "/studentDashboard/profile", icon: UsersIcon, current: true },
-  { name: "Fee Details", href: "/studentDashboard/feeDetails", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "/studentDashboard/calendar", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "/studentDashboard/documents", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "/studentDashboard/reports", icon: ChartPieIcon, current: false },
+  {
+    name: "Dashboard",
+    href: "/studentDashboard",
+    icon: HomeIcon,
+    current: false,
+  },
+  {
+    name: "Profile",
+    href: "/studentDashboard/profile",
+    icon: UsersIcon,
+    current: true,
+  },
+  {
+    name: "Fee Details",
+    href: "/studentDashboard/feeDetails",
+    icon: FolderIcon,
+    current: false,
+  },
+  {
+    name: "Calendar",
+    href: "/studentDashboard/calendar",
+    icon: CalendarIcon,
+    current: false,
+  },
+  {
+    name: "Documents",
+    href: "/studentDashboard/documents",
+    icon: DocumentDuplicateIcon,
+    current: false,
+  },
+  {
+    name: "Reports",
+    href: "/studentDashboard/reports",
+    icon: ChartPieIcon,
+    current: false,
+  },
 ];
 
 const Profile = () => {
+  const [student, setStudent] = useState<any>(null);
   const [profile, setProfile] = useState<{
     name: string;
     email: string;
@@ -33,22 +66,40 @@ const Profile = () => {
     branch: string;
     photo: File | null;
   }>({
-    name: "John Doe",
-    email: "johndoe@example.com",
+    name: student?.name || "Robert Brown",
+    email: "robert.brown@example.com",
     phone: "123-456-7890",
-    studentId: "IIIT1234",
-    batch: "2022",
-    currentSemester: "6",
-    enrollmentNumber: "ENR2022-0001",
+    studentId: student?.studentId || "LCI003",
+    batch: "2024",
+    currentSemester: "1",
+    enrollmentNumber: student?.studentId || "LCI003",
     parentsName: "Jane Doe",
     address: "123 Main St, City, Country",
     branch: "Computer Science",
     photo: null,
   });
 
+  const [isLoading, setIsLoading] = useState(true);
+  const { student: studentData, loading } = useStudent();
+  console.log(studentData);
+
+  useEffect(() => {
+    try {
+      instance.post("/api/student", { _id: studentData?._id }).then((res) => {
+        setStudent(res.data);
+        setIsLoading(false);
+      });
+    } catch (error) {
+      console.error("Error getting student", error);
+      setIsLoading(false);
+    }
+  }, [studentData]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setProfile((prevProfile) => ({
       ...prevProfile,
@@ -76,7 +127,13 @@ const Profile = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white shadow-lg">
         <div className="p-4 flex items-center gap-4">
-          <Image src="/images/logo.png" alt="Logo" width={50} height={50} className="rounded-full" />
+          <Image
+            src="/images/logo.png"
+            alt="Logo"
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
           <h2 className="text-lg font-extrabold">Accounts Portal</h2>
         </div>
         <nav className="mt-8">
@@ -106,15 +163,22 @@ const Profile = () => {
             <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4">
               {/* Placeholder Image */}
               {profile.photo ? (
-                <Image src={URL.createObjectURL(profile.photo)} alt="Profile" width={128} height={128} />
+                <Image
+                  src={URL.createObjectURL(profile.photo)}
+                  alt="Profile"
+                  width={128}
+                  height={128}
+                />
               ) : (
-                <Image src="/images/avatar.png" alt="Profile" width={128} height={128} />
+                <Image
+                  src="/images/avatar.png"
+                  alt="Profile"
+                  width={128}
+                  height={128}
+                />
               )}
             </div>
             <h2 className="text-lg font-semibold mb-2">{profile.name}</h2>
-            <p className="text-md text-gray-500">Full Stack Developer</p>
-            <p className="text-md text-gray-500 mb-4">Bay Area, San Francisco, CA</p>
-            <button className="px-4 py-2 bg-gray-300 text-black rounded w-[80%]">Mail</button>
           </div>
 
           {/* Right side - Profile Information */}
@@ -151,7 +215,9 @@ const Profile = () => {
         {/* Update Profile Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <div className="bg-white rounded-lg p-4 w-full max-w-2xl"> {/* Increased width */}
+            <div className="bg-white rounded-lg p-4 w-full max-w-2xl">
+              {" "}
+              {/* Increased width */}
               <h2 className="text-xl font-bold mb-2">Update Profile</h2>
               <form onSubmit={handleSubmit} className="space-y-2">
                 <label className=" text-gray-700">Full Name</label>
@@ -164,8 +230,10 @@ const Profile = () => {
                   className=" w-full p-1 border border-gray-300 rounded-md text-sm"
                   required
                 />
-                
-                <label className="block text-sm font-medium text-gray-700">Email</label>
+
+                <label className="block text-sm font-medium text-gray-700">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -176,7 +244,9 @@ const Profile = () => {
                   required
                 />
 
-                <label className="block text-sm font-medium text-gray-700">Phone</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Phone
+                </label>
                 <input
                   type="text"
                   name="phone"
@@ -187,7 +257,9 @@ const Profile = () => {
                   required
                 />
 
-                <label className="block text-sm font-medium text-gray-700">Batch</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Batch
+                </label>
                 <input
                   type="text"
                   name="batch"
@@ -198,7 +270,9 @@ const Profile = () => {
                   required
                 />
 
-                <label className="block text-sm font-medium text-gray-700">Current Semester</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Current Semester
+                </label>
                 <input
                   type="text"
                   name="currentSemester"
@@ -209,7 +283,9 @@ const Profile = () => {
                   required
                 />
 
-                <label className="block text-sm font-medium text-gray-700">Enrollment Number</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Enrollment Number
+                </label>
                 <input
                   type="text"
                   name="enrollmentNumber"
@@ -220,7 +296,9 @@ const Profile = () => {
                   required
                 />
 
-                <label className="block text-sm font-medium text-gray-700">Parent's Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Parent&apos;s Name
+                </label>
                 <input
                   type="text"
                   name="parentsName"
@@ -231,7 +309,9 @@ const Profile = () => {
                   required
                 />
 
-                <label className="block text-sm font-medium text-gray-700">Address</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Address
+                </label>
                 <textarea
                   name="address"
                   placeholder="Address"
@@ -241,7 +321,9 @@ const Profile = () => {
                   required
                 ></textarea>
 
-                <label className="block text-sm font-medium text-gray-700">Branch</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Branch
+                </label>
                 <input
                   type="text"
                   name="branch"
@@ -252,14 +334,19 @@ const Profile = () => {
                   required
                 />
 
-                <label className="block text-sm font-medium text-gray-700">Profile Picture</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Profile Picture
+                </label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
                   className="block w-full p-1 border border-gray-300 rounded-md text-sm"
                 />
-                <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md">
+                <button
+                  type="submit"
+                  className="w-full bg-blue-500 text-white py-2 rounded-md"
+                >
                   Submit
                 </button>
               </form>

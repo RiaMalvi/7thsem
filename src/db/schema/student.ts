@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const studentSchema = new Schema({
   studentId: {
@@ -7,8 +7,18 @@ const studentSchema = new Schema({
     unique: true,
   },
   name: String,
-  batch: String,
-  semester: Number,
+  batch: {
+    type: Schema.Types.ObjectId,
+    ref: "Batch",
+  },
+  semester: {
+    type: Schema.Types.ObjectId,
+    ref: "Semester",
+  },
+  transactions: {
+    type: [Schema.Types.ObjectId],
+    ref: "Transaction",
+  },
   branch: String,
   email: String,
   phone: String,
@@ -20,4 +30,5 @@ const studentSchema = new Schema({
     min: 8,
   },
 });
-export const Student = model("Student", studentSchema);
+
+export const Student = models.Student || model("Student", studentSchema);

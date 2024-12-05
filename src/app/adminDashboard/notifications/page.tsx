@@ -1,9 +1,6 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
-import Image from "next/image";
-import { adminNavigation } from "@/app/data/adminDashboard";
-import AdminDashboard from "../page";
 import AdminSidebar from "@/app/components/adminDashboard/sidebar";
 import emailjs from '@emailjs/browser';
 // Define the structure of a notification

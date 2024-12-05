@@ -114,23 +114,23 @@ const DocumentsPage = () => {
 
   const feeData: FeeData = {
     student: {
-      name: "John Doe",
-      rollNumber: "123456",
-      email: "johndoe@example.com",
+      name: "Robert Brown",
+      rollNumber: "LCI003",
+      email: "robert.brown@example.com",
     },
-    semester: "Spring 2023",
+    semester: "1",
     fees: [
       {
-        description: "Tuition fee payment",
-        transactionId: "TX12345",
+        description: "Academic fees",
+        transactionId: "TXN001",
         date: "2023-01-15",
-        amount: 5000,
+        amount: 100000,
       },
       {
-        description: "Library fees",
-        transactionId: "TX12346",
+        description: "Mess Fees",
+        transactionId: "TXN002",
         date: "2023-01-16",
-        amount: 300,
+        amount: 15000,
       },
     ],
   };

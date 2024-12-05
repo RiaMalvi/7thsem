@@ -1,15 +1,41 @@
 "use client";
 
 import AdminSidebar from "@/app/components/adminDashboard/sidebar";
-import { useAtomValue } from "jotai";
-import { batchAtom, Batch} from "@/atoms/all";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddBatchButton from "@/app/components/adminDashboard/studentManagement/AddBatchButton";
+import { instance } from "@/config/axios";
+import { useRouter } from "next/navigation";
+
+// Define the structure of a batch
+interface Batch {
+  id: string;
+  program: string;
+  year: number;
+  semester: {
+    semester: number;
+  };
+  students: { id: string; name: string; email: string }[];
+}
 
 const UserManagement: React.FC = () => {
-  const batches = useAtomValue<Batch[]>(batchAtom);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [loading, setLoading] = useState<boolean>(true);
+  const [batches, setBatches] = useState<Batch[]>([]);
+  const [selectedBatch, setSelectedBatch] = useState<Batch | null>(null);
+  const router = useRouter();
 
-  const groupedBatches: Record<string, Batch[]> = batches.reduce(
+  const toggleSection = (program: string) => {
+    setExpanded((prev) => ({ ...prev, [program]: !prev[program] }));
+  };
+
+  useEffect(() => {
+    instance.get<Batch[]>("/api/batch").then((res) => {
+      setBatches(res.data);
+      setLoading(false);
+    });
+  }, []);
+
+  const groupedBatches = batches.reduce<Record<string, Batch[]>>(
     (acc, batch) => {
       if (!acc[batch.program]) {
         acc[batch.program] = [];
@@ -17,24 +43,12 @@ const UserManagement: React.FC = () => {
       acc[batch.program].push(batch);
       return acc;
     },
-    {} as Record<string, Batch[]>
+    {}
   );
 
-  const [expanded, setExpanded] = useState<Record<string, boolean>>(
-    Object.keys(groupedBatches).reduce((acc, program) => {
-      acc[program] = false;
-      return acc;
-    }, {} as Record<string, boolean>)
-  );
-
-  const [selectedBatch, setSelectedBatch] = useState<Batch | null>(null);
-
-  const toggleSection = (program: string) => {
-    setExpanded((prev) => ({ ...prev, [program]: !prev[program] }));
-  };
-
-  const handleBatchClick = (batch: Batch) => {
-    setSelectedBatch(batch); // Set the selected batch when clicked
+  const viewStudentDetails = (studentId: string) => {
+    // Replace with the appropriate path to your student details page
+    router.push(`/student/${studentId}`);
   };
 
   return (
@@ -42,46 +56,49 @@ const UserManagement: React.FC = () => {
       <AdminSidebar />
       <div className="flex-1 p-6 text-black">
         <AddBatchButton />
-        {Object.entries(groupedBatches).map(([program, programBatches]) => (
-          <div key={program} className="mb-8 border rounded-lg shadow-lg">
-            <div
-              className="flex justify-between items-center bg-gray-200 p-4 cursor-pointer"
-              onClick={() => toggleSection(program)}
-            >
-              <h1 className="text-xl font-bold">{program}</h1>
-              <span className="text-lg">{expanded[program] ? "▼" : "▶"}</span>
-            </div>
-            {expanded[program] && (
-              <div className="p-4 max-h-80 overflow-y-auto">
-                {programBatches.map((batch) => (
-                  <div
-                    key={`${batch.program}-${batch.year}-${batch.id}`}
-                    className="bg-white shadow-md rounded-lg p-4 mb-4 cursor-pointer"
-                    onClick={() => handleBatchClick(batch)} // Set the selected batch
-                  >
-                    <h2 className="font-semibold text-lg">
-                      Year: {batch.year}
-                    </h2>
-                    <p className="text-gray-600 mt-2">
-                      Semester: {batch.semester}
-                    </p>
-                  </div>
-                ))}
+        {loading ? (
+          <div className="text-center text-gray-600">Loading...</div>
+        ) : (
+          Object.entries(groupedBatches).map(([program, batches]) => (
+            <div key={program} className="mb-8 border rounded-lg shadow-lg">
+              <div
+                className="flex justify-between items-center bg-gray-200 p-4 cursor-pointer"
+                onClick={() => toggleSection(program)}
+              >
+                <h1 className="text-xl font-bold">{program}</h1>
+                <span className="text-lg">{expanded[program] ? "▼" : "▶"}</span>
               </div>
-            )}
-          </div>
-        ))}
-
-        {/* Display students table only if a batch is selected */}
+              {expanded[program] && (
+                <div className="p-4">
+                  {batches.map((batch) => (
+                    <div
+                      key={batch.id}
+                      className="bg-white p-4 rounded-lg shadow-md mb-4 cursor-pointer"
+                      onClick={() => setSelectedBatch(batch)}
+                    >
+                      <h2 className="text-lg font-bold">Year {batch.year}</h2>
+                      <p className="text-sm text-gray-600">
+                        Semester {batch.semester.semester}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        {batch.students.length} students
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))
+        )}
         {selectedBatch ? (
           <div className="mt-6 bg-white p-4 rounded-lg shadow-md">
             <h2 className="text-xl font-bold mb-4">
               Students in Batch: {selectedBatch.program} - Year{" "}
-              {selectedBatch.year} - {selectedBatch.semester}
+              {selectedBatch.year} - {selectedBatch.semester.semester}
             </h2>
-            <table className="min-w-full table-auto">
+            <table className="min-w-full table-auto border-collapse border border-gray-300 rounded-lg shadow-md">
               <thead>
-                <tr>
+                <tr className="bg-gray-100">
                   <th className="px-4 py-2 border">Student Id</th>
                   <th className="px-4 py-2 border">Name</th>
                   <th className="px-4 py-2 border">Email Id</th>
@@ -89,7 +106,11 @@ const UserManagement: React.FC = () => {
               </thead>
               <tbody>
                 {selectedBatch.students.map((student) => (
-                  <tr key={student.id}>
+                  <tr
+                    key={student.id}
+                    className="cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => viewStudentDetails(student.id)}
+                  >
                     <td className="px-4 py-2 border">{student.id}</td>
                     <td className="px-4 py-2 border">{student.name}</td>
                     <td className="px-4 py-2 border">{student.email}</td>
@@ -99,7 +120,6 @@ const UserManagement: React.FC = () => {
             </table>
           </div>
         ) : (
-          // Fallback message if no batch is selected yet
           <div className="mt-6 text-center text-gray-600">
             Please select a batch to view students.
           </div>

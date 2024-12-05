@@ -1,11 +1,12 @@
 // src/app/layout.tsx
 "use-client";
-import './globals.css';
-import { Toaster } from 'react-hot-toast'; // Import Toaster
+import { StudentProvider } from "@/providers/Student";
+import "./globals.css";
+import { Toaster } from "react-hot-toast"; // Import Toaster
 
 export const metadata = {
-  title: 'IIIT Lucknow Accounts',
-  description: 'Login portal for students, employees, and admins',
+  title: "IIIT Lucknow Accounts",
+  description: "Login portal for students, employees, and admins",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -14,7 +15,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body className="">
         <div className="min-h-screen flex flex-col">
           <Toaster /> {/* Add Toaster here */}
-          {children}
+          <StudentProvider>{children}</StudentProvider>
         </div>
       </body>
     </html>
