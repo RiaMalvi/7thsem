@@ -137,7 +137,7 @@ const DocumentsPage = () => {
             height={50}
             className="rounded-full"
           />
-          <h2 className="text-lg font-extrabold">Accounts Portal</h2>
+          <h2 className="text-lg font-extrabold">Student Portal</h2>
         </div>
         <nav className="mt-8">
           {navigation.map((item) => (

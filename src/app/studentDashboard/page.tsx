@@ -42,12 +42,7 @@ const navigation = [
     icon: DocumentDuplicateIcon,
     current: false,
   },
-  {
-    name: "Reports",
-    href: "/studentDashboard/reports",
-    icon: ChartPieIcon,
-    current: false,
-  },
+  
 ];
 
 const StudentDashboard = () => {
@@ -63,7 +58,7 @@ const StudentDashboard = () => {
             height={50}
             className="rounded-full"
           />
-          <h2 className="text-lg font-extrabold">Accounts Portal</h2>
+          <h2 className="text-lg font-extrabold">Student Portal</h2>
         </div>
         <nav className="mt-8">
           {navigation.map((item) => (
@@ -138,17 +133,7 @@ const StudentDashboard = () => {
             </a>
           </div>
 
-          {/* Card 4: Reports */}
-          <div className="bg-white shadow-md rounded-lg p-4">
-            <h2 className="font-semibold text-lg">Reports</h2>
-            <p className="text-gray-600">View your academic reports.</p>
-            <a
-              href="/studentDashboard/reports"
-              className="text-blue-500 mt-2 block"
-            >
-              Go to Reports
-            </a>
-          </div>
+          
 
           {/* Card 6: Help */}
           <div className="bg-white shadow-md rounded-lg p-4">

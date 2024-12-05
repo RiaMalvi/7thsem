@@ -43,12 +43,7 @@ const navigation = [
     icon: DocumentDuplicateIcon,
     current: false,
   },
-  {
-    name: "Reports",
-    href: "/studentDashboard/reports",
-    icon: ChartPieIcon,
-    current: false,
-  },
+ 
 ];
 
 const Profile = () => {
@@ -134,7 +129,7 @@ const Profile = () => {
             height={50}
             className="rounded-full"
           />
-          <h2 className="text-lg font-extrabold">Accounts Portal</h2>
+          <h2 className="text-lg font-extrabold">Student Portal</h2>
         </div>
         <nav className="mt-8">
           {navigation.map((item) => (
