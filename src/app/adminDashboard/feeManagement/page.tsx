@@ -13,7 +13,7 @@ type Fee = {
 };
 
 // Sample user groups; you can modify this as needed
-const userGroups = ["Class A", "Class B", "Class C", "Class D"];
+const userGroups = ["B.Tech", "M.Tech", "MBA", "M.Sc"];
 
 const FeeManagement = () => {
   const [fees, setFees] = useState<Fee[]>([]);
@@ -147,7 +147,7 @@ const FeeManagement = () => {
                   {fee.description}
                 </td>
                 <td className="border-b border-gray-300 px-4 py-2">
-                  ${fee.amount}
+                ₹{fee.amount}
                 </td>
                 <td className="border-b border-gray-300 px-4 py-2">
                   {fee.userGroup}
